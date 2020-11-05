@@ -145,8 +145,10 @@ class Chef
             name = @new_resource.source
           end
 
+          gem_options = node['rvm']['rvm_gem_options']
+
           cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
-          cmd << %{ install #{name} -q --no-rdoc --no-ri -v "#{version}"}
+          cmd << %{ install #{name} -q #{gem_options} -v "#{version}"}
           cmd << %{#{src}#{opts}}
 
           if gem_env.user
